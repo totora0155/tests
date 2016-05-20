@@ -1,2 +1,1 @@
-GET /     controllers.Application.index
-GET /send controllers.Application.send
+POST /contact/send controllers.Contact.send

@@ -1,0 +1,13 @@
+@(company: Option[String], name: String, kananame: String, position: Option[String], tel: String, content: String)
+- 会社名
+  @company.getOrElse("未記述")
+- 氏名
+  @name
+- カナ氏名
+  @kananame
+- 部署役職
+  @position.getOrElse("未記述")
+- 電話番号
+  @tel
+- お問い合わせ内容
+  @content
