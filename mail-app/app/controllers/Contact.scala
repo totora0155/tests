@@ -1,7 +1,7 @@
 package controllers
 
 import javax.inject.{Singleton, Inject}
-import play.api.Play.current
+import play.api.Configuration
 import org.apache.commons.mail.EmailAttachment
 import play.api.data._
 import play.api.data.Forms._
@@ -13,31 +13,32 @@ import controllers.forms.contact.{Create, CreateForm}
 import views.txt.mail.ContactContent
 
 @Singleton
-class Contact @Inject()(mailer: MailerClient, environment: Environment) extends Controller {
+class Contact @Inject()(configuration: Configuration, mailer: MailerClient, environment: Environment) extends Controller {
+  val mailSubject = configuration.underlying.getString("play.mailer.subject")
+  val mailTo = configuration.underlying.getString("play.mailer.to")
+
+  def buildEmail(form: CreateForm): Email = {
+    Email(
+      mailSubject,
+      form.email,
+      Seq(mailTo),
+      bodyText = Some(
+        ContactContent(form.company, form.name, form.kananame,
+                       form.position, form.tel, form.content).body.trim
+      )
+    )
+  }
+
   def send = Action { implicit request =>
     Create.form.bindFromRequest.fold(
       formErrors => {
         BadRequest(s"Validation Error")
       },
       form => {
-        val email = Contact.buildEmail(form)
+        val email = buildEmail(form)
         mailer.send(email)
         Ok(s"send")
       }
-    )
-  }
-}
-
-object Contact {
-  val subject = current.configuration.getString("play.mailer.subject").get
-  val to = current.configuration.getString("play.mailer.to").get
-
-  def buildEmail(form: CreateForm): Email = {
-    Email(
-      Contact.subject,
-      form.email,
-      Seq(Contact.to),
-      bodyText = Some(ContactContent(form.company, form.name, form.kananame, form.position, form.tel, form.content).body.trim)
     )
   }
 }
