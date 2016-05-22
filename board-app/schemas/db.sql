@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS `tmp_board`;
+CREATE DATABASE `tmp_board`;
