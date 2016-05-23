@@ -1,0 +1,18 @@
+@(threads: List[models.Thread])
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>a</title>
+</head>
+<body>
+
+  <ul>
+    @threads.map { thread =>
+      <li>@thread.title</li>
+    }
+  </ul>
+
+</body>
+</html>
