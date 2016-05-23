@@ -1,0 +1,21 @@
+@(threadName: String, resList: List[models.Res])
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <h1>@threadName</h1>
+  
+  <a href='@routes.Application.index()'>Back</a>
+
+  <ul>
+    @resList.map { res  =>
+      <li>@res.message</li>
+    }
+  </ul>
+
+</body>
+</html>

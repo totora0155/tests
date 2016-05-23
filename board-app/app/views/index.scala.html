@@ -10,7 +10,9 @@
 
   <ul>
     @threads.map { thread =>
-      <li>@thread.title</li>
+      <li>
+        <a href='@routes.Thread.index(thread.id)'>@thread.title</a>
+      </li>
     }
   </ul>
 
