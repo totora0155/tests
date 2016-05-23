@@ -1,4 +1,4 @@
-@(threadName: String, resList: List[models.Res])
+@(threadName: String, resList: List[models.Res])(resForm: Form[Res])
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -8,7 +8,7 @@
 <body>
 
   <h1>@threadName</h1>
-  
+
   <a href='@routes.Application.index()'>Back</a>
 
   <ul>
@@ -16,6 +16,12 @@
       <li>@res.message</li>
     }
   </ul>
+
+  @helper.form(action = routes.Res.submit()) {
+    @helper.inputText(resForm("name"))
+    @helper.textarea(resForm("message"))
+    <input type="hidden" name="threadId" value="1">
+  }
 
 </body>
 </html>
