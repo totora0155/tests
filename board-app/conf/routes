@@ -5,3 +5,5 @@ GET     /threads/:id/edit       controllers.Thread.edit(id: Long)
 POST    /threads/:id/update     controllers.Thread.update(id: Long)
 POST    /threads/:id/delete     controllers.Thread.delete(id: Long)
 POST    /res                    controllers.Res.create()
+
+GET     /login                  controllers.Auth.login()

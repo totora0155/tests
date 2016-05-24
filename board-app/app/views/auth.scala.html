@@ -1,0 +1,20 @@
+@(authForm: Form[forms.Auth])(implicit messages: Messages)
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <h1>Login</h1>
+
+  @helper.form(action = routes.Auth.login()) {
+    @helper.inputText(authForm("id"))
+    @helper.textarea(authForm("pass"))
+    <button type="submit">update</button>
+  }
+
+</body>
+</html>

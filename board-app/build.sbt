@@ -10,6 +10,8 @@ libraryDependencies ++= Seq(
   "org.skinny-framework" %% "skinny-orm" % "2.1.1",
   "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.5.+",
   "org.mariadb.jdbc" % "mariadb-java-client" % "1.4.5",
+  "jp.t2v" %% "play2-auth" % "0.14.2",
+  "jp.t2v" %% "play2-auth-test" % "0.14.2" % "test",
   // "ch.qos.logback" % "logback-classic" % "1.1.7",
   "org.scalatest" %% "scalatest" % "2.2.6" % "test"
 )
