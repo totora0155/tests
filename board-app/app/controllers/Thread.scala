@@ -28,6 +28,35 @@ class Thread @Inject()(val messagesApi: MessagesApi) extends Controller with I18
     )
   }
 
+  def edit(id: Long) = Action {
+    val threadOpt = models.Thread.findById(id)
+    if (threadOpt.isEmpty) {
+      NotFound(s"not found")
+    } else {
+      val thread = threadOpt.get
+      val form = forms.Thread.form.fill(forms.Thread(
+        thread.title,
+        thread.author
+      ))
+      Ok(views.html.editThread(thread)(form))
+    }
+  }
+
+  def update(id: Long) = Action { implicit req =>
+    forms.Thread.form.bindFromRequest.fold(
+      errors => {
+        BadRequest(s"bad")
+      },
+      thread => {
+        DB.localTx { implicit session =>
+          thread.update(id)
+          Redirect(routes.Application.index)
+        }
+
+      }
+    )
+  }
+
   def delete(id: Long) = Action { implicit req =>
     DB.localTx { implicit session =>
       models.Thread.deleteById(id)

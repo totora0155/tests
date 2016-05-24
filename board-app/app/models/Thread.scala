@@ -26,4 +26,12 @@ object Thread extends SkinnyCRUDMapper[Thread] {
       'updatedAt -> DateTime.now()
     )
   }
+
+  def update(threadId: Long, title: String, author: String) = {
+    models.Thread.updateById(threadId).withAttributes(
+      'title -> title,
+      'author -> author,
+      'updatedAt -> DateTime.now()
+    )
+  }
 }

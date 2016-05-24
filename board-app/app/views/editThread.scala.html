@@ -1,0 +1,18 @@
+@(thread: models.Thread)(threadForm: Form[forms.Thread])(implicit messages: Messages)
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  @helper.form(action = routes.Thread.update(thread.id)) {
+    @helper.inputText(threadForm("title"), '_value -> thread.title)
+    @helper.textarea(threadForm("author"), '_value -> thread.author)
+    <button type="submit">update</button>
+  }
+
+</body>
+</html>

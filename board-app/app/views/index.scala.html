@@ -12,8 +12,11 @@
     @threads.map { thread =>
       <li>
         <a href='@routes.Thread.index(thread.id)'>@thread.title&nbsp<span>@thread.getResCount()</span></a>
-        @helper.form(action = routes.Thread.delete(thread.id), 'method -> "POST") {
+        @helper.form(action = routes.Thread.delete(thread.id)) {
           <button type="submit">delete</button>
+        }
+        @helper.form(action = routes.Thread.edit(thread.id)) {
+          <button type="submit">update</button>
         }
       </li>
     }

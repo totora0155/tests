@@ -10,6 +10,10 @@ case class Thread(title: String, author: String) {
   def create()(implicit session: DBSession): Unit = {
     models.Thread.create(title, author)
   }
+
+  def update(threadId: Long)(implicit session: DBSession): Unit = {
+    models.Thread.update(threadId, title, author)
+  }
 }
 
 object Thread {
