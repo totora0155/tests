@@ -22,6 +22,7 @@ object Res extends SkinnyCRUDMapper[Res] {
   override def extract(rs: WrappedResultSet, rn: ResultName[Res]) = autoConstruct(rs, rn)
 
   def belongTo(thread: Thread) = where(sqls.eq(r.threadId, thread.id)).apply()
+  def count(threadId: Long) = countBy(sqls.eq(r.threadId, threadId))
 
   def create(threadId: Long, name: String, message: String) {
     models.Res.createWithAttributes(

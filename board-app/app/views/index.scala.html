@@ -1,4 +1,4 @@
-@(threads: List[models.Thread])(threadForm: Form[forms.Thread])(implicit messages: Messages)
+@(threads: Seq[controllers.ThreadOutputer])(threadForm: Form[forms.Thread])(implicit messages: Messages)
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -11,7 +11,7 @@
   <ul>
     @threads.map { thread =>
       <li>
-        <a href='@routes.Thread.index(thread.id)'>@thread.title</a>
+        <a href='@routes.Thread.index(thread.id)'>@thread.title&nbsp<span>@thread.getResCount()</span></a>
         @helper.form(action = routes.Thread.delete(thread.id), 'method -> "POST") {
           <button type="submit">delete</button>
         }
