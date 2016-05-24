@@ -17,7 +17,4 @@ object Thread extends SkinnyCRUDMapper[Thread] {
   private[this] lazy val t = defaultAlias
 
   override def extract(rs: WrappedResultSet, rn: ResultName[Thread]) = autoConstruct(rs, rn)
-
-  // def create(name: String): Long = createWithNamedValues(column.name -> name)
-  // def findByName(name: String): Option[User] = where(sqls.eq(u.name, name)).apply().headOption
 }

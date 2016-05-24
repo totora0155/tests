@@ -1,4 +1,4 @@
-@(threadName: String, resList: List[models.Res])(resForm: Form[Res])
+@(thread: models.Thread, resList: List[models.Res])(resForm: Form[forms.Res])(implicit messages: Messages)
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -7,20 +7,24 @@
 </head>
 <body>
 
-  <h1>@threadName</h1>
+  <h1>@thread.title</h1>
 
   <a href='@routes.Application.index()'>Back</a>
 
-  <ul>
+  <ol>
     @resList.map { res  =>
-      <li>@res.message</li>
+      <li>
+        <p>@res.name</p>
+        <p>@res.message</p>
+      </li>
     }
-  </ul>
+  </ol>
 
-  @helper.form(action = routes.Res.submit()) {
+  @helper.form(action = routes.Res.create()) {
     @helper.inputText(resForm("name"))
     @helper.textarea(resForm("message"))
-    <input type="hidden" name="threadId" value="1">
+    <input type="hidden" name="threadId" value="@thread.id">
+    <button type="submit">submit</button>
   }
 
 </body>

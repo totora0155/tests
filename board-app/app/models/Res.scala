@@ -15,22 +15,6 @@ case class Res(
   updatedAt: DateTime
 )
 
-case class ResCreater(
-  threadId: Long,
-  name: String,
-  message: String) {
-
-  def save()(implicit session: DBSession): Long = {
-    Res.createWithAttributes(
-      'threadId -> threadId,
-      'name -> name,
-      'message -> message,
-      'createdAt -> DateTime.now(),
-      'updatedAt -> DateTime.now()
-    )
-  }
-}
-
 object Res extends SkinnyCRUDMapper[Res] {
   override lazy val defaultAlias = createAlias("r")
   private[this] lazy val r = defaultAlias
@@ -38,4 +22,14 @@ object Res extends SkinnyCRUDMapper[Res] {
   override def extract(rs: WrappedResultSet, rn: ResultName[Res]) = autoConstruct(rs, rn)
 
   def belongTo(thread: Thread) = where(sqls.eq(r.threadId, thread.id)).apply()
+
+  def create(threadId: Long, name: String, message: String) {
+    models.Res.createWithAttributes(
+      'threadId -> threadId,
+      'name -> name,
+      'message -> message,
+      'createdAt -> DateTime.now(),
+      'updatedAt -> DateTime.now()
+    )
+  }
 }

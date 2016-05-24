@@ -6,17 +6,9 @@ import play.api.data.Forms._
 import play.api.data._
 import scalikejdbc._
 
-import models._
-
 case class Res(threadId: Long, name: String, message: String) {
-  def build()(implicit session: DBSession): ResCreater = new ResCreater(
-    threadId: threadId,
-    name: name,
-    message: message
-  )
-
-  def save()(implicit session: DBSession): Long = {
-    build()
+  def create()(implicit session: DBSession) = {
+    models.Res.create(threadId, name, message)
   }
 }
 

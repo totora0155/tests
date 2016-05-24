@@ -1,2 +1,3 @@
 GET     /                controllers.Application.index()
 GET     /thread/:id      controllers.Thread.index(id: Long)
+POST    /res             controllers.Res.create()

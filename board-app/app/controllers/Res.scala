@@ -4,24 +4,18 @@ import javax.inject._
 import play.api.mvc._
 import scalikejdbc._
 
-import forms._
-
 @Singleton
 class Res extends Controller {
-  def submit() = Action { implicit req =>
+  def create() = Action { implicit req =>
     forms.Res.form.bindFromRequest().fold(
       errors => {
         BadRequest(s"oops")
       },
-      form => {
-        val res = forms.Res(form.threadId, form.name, form.message)
-        print(res)
-        Ok(s"ccc")
-        // DB.localTx { implicit session =>
-        //   val res = forms.Res(form.threadId, form.name, form.message)
-        //   res.build()
-        //   Ok(s"created")
-        // }
+      res => {
+        DB.localTx { implicit session =>
+          forms.Res(res.threadId, res.name, res.message).create()
+          Redirect(routes.Thread.index(res.threadId))
+        }
       }
     )
   }
