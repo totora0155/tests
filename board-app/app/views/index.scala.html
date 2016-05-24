@@ -12,6 +12,9 @@
     @threads.map { thread =>
       <li>
         <a href='@routes.Thread.index(thread.id)'>@thread.title</a>
+        @helper.form(action = routes.Thread.delete(thread.id), 'method -> "POST") {
+          <button type="submit">delete</button>
+        }
       </li>
     }
   </ul>

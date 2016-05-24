@@ -27,4 +27,11 @@ class Thread @Inject()(val messagesApi: MessagesApi) extends Controller with I18
       }
     )
   }
+
+  def delete(id: Long) = Action { implicit req =>
+    DB.localTx { implicit session =>
+      models.Thread.deleteById(id)
+      Redirect(routes.Application.index)
+    }
+  }
 }
