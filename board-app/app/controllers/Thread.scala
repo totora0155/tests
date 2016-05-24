@@ -13,4 +13,18 @@ class Thread @Inject()(val messagesApi: MessagesApi) extends Controller with I18
       Ok(views.html.thread(thread, resList)(forms.Res.form))
     }
   }
+
+  def create() = Action { implicit req =>
+    forms.Thread.form.bindFromRequest.fold(
+      errors => {
+        BadRequest(s"bad")
+      },
+      thread => {
+        DB.localTx { implicit session =>
+          thread.create()
+          Redirect(routes.Application.index)
+        }
+      }
+    )
+  }
 }

@@ -1,4 +1,4 @@
-@(threads: List[models.Thread])
+@(threads: List[models.Thread])(threadForm: Form[forms.Thread])(implicit messages: Messages)
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -15,6 +15,12 @@
       </li>
     }
   </ul>
+
+  @helper.form(action = routes.Thread.create()) {
+    @helper.inputText(threadForm("title"))
+    @helper.textarea(threadForm("author"))
+    <button type="submit">create</button>
+  }
 
 </body>
 </html>

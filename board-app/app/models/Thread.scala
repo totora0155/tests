@@ -17,4 +17,13 @@ object Thread extends SkinnyCRUDMapper[Thread] {
   private[this] lazy val t = defaultAlias
 
   override def extract(rs: WrappedResultSet, rn: ResultName[Thread]) = autoConstruct(rs, rn)
+
+  def create(title: String, author: String) = {
+    models.Thread.createWithAttributes(
+      'title -> title,
+      'author -> author,
+      'createdAt -> DateTime.now(),
+      'updatedAt -> DateTime.now()
+    )
+  }
 }

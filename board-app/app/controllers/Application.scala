@@ -7,13 +7,11 @@ import play.api.data.Forms._
 import play.api.Environment
 import play.api.mvc._
 import play.api.libs.json.Json
-
-import models._
+import play.api.i18n.{I18nSupport, MessagesApi, Messages, Lang}
 
 @Singleton
-class Application @Inject()(configuration: Configuration) extends Controller {
+class Application @Inject()(valconfiguration: Configuration, val messagesApi: MessagesApi) extends Controller with I18nSupport {
   def index = Action {
-    // Ok(s"index")
-    Ok(views.html.index(Thread.findAll()))
+    Ok(views.html.index(models.Thread.findAll())(forms.Thread.form))
   }
 }

@@ -2,8 +2,8 @@ package forms
 
 import javax.inject.{Singleton, Inject}
 import play.api.mvc._
+import play.api.data.Form
 import play.api.data.Forms._
-import play.api.data._
 import scalikejdbc._
 
 case class Res(threadId: Long, name: String, message: String) {
@@ -18,6 +18,6 @@ object Res {
       "threadId" -> longNumber,
       "name" -> nonEmptyText,
       "message" -> nonEmptyText
-    )(Res.apply)(Res.unapply)
+    )(forms.Res.apply)(forms.Res.unapply)
   )
 }
